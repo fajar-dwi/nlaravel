@@ -10,39 +10,35 @@
             @endif
             <div class="card-body">
             @if(Auth::user()->foto == null)
-                <img src="{{ asset('/storage/foto/default.jpg') }}" alt="" width="294px">
-                <div class="overlay">
-                    <div class="text">
-                        <form action="/profil/ubah" method="POST" class="d-inline">
-                            @csrf
-                            <input type="file" class="form-control-file">
-                            <button type="submit" name="tambah" class="btn btn-success">Tambah</button>
-                        </form>
-                        {{-- <a href="" class="btn btn-primary d-inline">Ubah</a> --}}
-                        {{-- <a href="/profil/del" class="btn btn-danger d-inline">Hapus</a> --}}
-                    </div>
+                <div class="show-image">
+                    <img src="{{ asset('/storage/foto/default.jpg') }}" alt="" width="294px">
+                    <form action="/profil/tam" method="POST" class="d-inline" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="foto" class="infile form-control-file @error('foto') is-invalid @enderror">
+                        @error('foto')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <button type="submit" name="tambah" class="tambah btn btn-success">Tambah</button>
+                    </form>
                 </div>
             @else
-                <div class="foto">
-                    <img src="{{ asset('/storage').'/'.Auth::user()->foto }}" alt="">
-                    <div class="overlay">
-                        <div class="text">
-                            <form action="/profil/ubah" method="POST" class="d-inline">
-                                @method('put')
-                                @csrf
-                                <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
-                            </form>
-                            <form action="/profil/del" method="POST" class="d-inline">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" name="hapus" class="btn btn-danger">Hapus</button>
-                            </form>
-                            {{-- <a href="" class="btn btn-primary d-inline">Ubah</a> --}}
-                            {{-- <a href="/profil/del" class="btn btn-danger d-inline">Hapus</a> --}}
-                        </div>
-                    </div>
+                <div class="show-image">
+                    <img src="{{ asset('/storage').'/'.Auth::user()->foto }}" alt="" width="294px">
+                    <form action="/profil/ubah" method="POST" enctype="multipart/form-data">
+                        @method('put')
+                        @csrf
+                        <input type="file" name="foto" class="infile form-control-file @error('foto') is-invalid @enderror">
+                        @error('foto')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <button type="submit" name="ubah" class="update btn btn-primary">Ubah</button>
+                    </form>
+                    <form id="form-delete" action="/profil/del" method="POST" class="d-inline">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" name="hapus" class="delete btn btn-danger">Hapus</button>
+                    </form>
                 </div>
-                    
                 @endif
                 <h5 class="card-title">{{ Auth::user()->name }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ Auth::user()->nip }}</h6>
@@ -51,4 +47,21 @@
             </div>
         </div>
     </div>
+    <!-- <script>
+      function phapus() {
+        swal({
+          title: 'Hapus data ?',
+          text: "Klik Hapus untuk menghapus data !",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Hapus'
+        }).then((result) => {
+          if (result.value) {
+            $('#form-delete').submit();
+          }
+        })
+      }
+    </script> -->
 @endsection

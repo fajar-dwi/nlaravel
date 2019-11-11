@@ -23,4 +23,6 @@ Route::get('/profil','ProfilController@index')->name('profil');
 Route::get('/profil/edit','ProfilController@edit')->name('edit');
 Route::put('/profil','ProfilController@update')->name('update');
 Route::delete('/profil/del','ProfilController@destroy')->name('hapus');
+Route::post('/profil/tam','ProfilController@store')->name('tambah');
+Route::put('/profil/ubah','ProfilController@upfoto')->name('update.foto');
 // Route::resource('profil', 'ProfilController');

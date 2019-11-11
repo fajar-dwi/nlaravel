@@ -46,34 +46,35 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
-
-  .overlay {
-    vertical-align: middle;
-    position: absolute;
-    top: 20px;
-    bottom: 60px;
-    left: 20px;
-    right: 20px;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: rgb(196, 225, 230);
-  }
-  .foto img{
-    max-width: 100%;
-  }
-  .card:hover .overlay {
-    opacity: 1;
-  }
-  .text {
-    color: white;
-    font-size: 20px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-align: center;
-  }
-  
+}
+div.show-image {
+  position: relative;
+  float:left;
+  margin:5px;
+}
+div.show-image:hover img{
+  opacity:0.5;
+}
+div.show-image:hover button, div.show-image:hover input{
+  display: block;
+}
+div.show-image button, div.show-image input {
+  position:absolute;
+  display:none;
+}
+div.show-image input.infile{
+  top:0;
+  left:0;
+}
+div.show-image button.update{
+  top:32px;
+  left:0;
+}
+div.show-image button.delete {
+  top:0;
+  left:76%;
+}
+div.show-image button.tambah {
+  top:0;
+  left:72%;
 }

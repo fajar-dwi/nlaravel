@@ -42,7 +42,13 @@ class ProfilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $request->validate([
+          'foto' => 'required|mimes:jpeg,png,jpg|max:1000',
+      ]);
+      $foto = $request->file('foto')->store('foto');
+      User::where('id', Auth::user()->id )
+                    ->update(['foto' => $foto]);
+      return redirect('profil')->with('status','Foto Berhasil Ditambah');
     }
 
     /**
@@ -87,6 +93,17 @@ class ProfilController extends Controller
         'email' => $request->email
         ]);
         return redirect('profil')->with('status','Data Berhasil Diupdate');
+    }
+    public function upfoto(Request $request, User $user)
+    {
+      $request->validate([
+          'foto' => 'required|mimes:jpeg,png,jpg|max:1000',
+      ]);
+      Storage::delete(Auth::user()->foto);
+      $foto = $request->file('foto')->store('foto');
+      User::where('id', Auth::user()->id )
+                    ->update(['foto' => $foto]);
+      return redirect('profil')->with('status','Foto Berhasil Dupdate');
     }
 
     /**
